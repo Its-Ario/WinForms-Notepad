@@ -20,7 +20,7 @@ namespace Notepad
         {
             InitializeComponent();
 
-            this.saveFileDialog.Filter = this.openFileDialog.Filter = "Text Files | *.txt";
+            this.saveFileDialog.Filter = this.openFileDialog.Filter = "Text Files | *.txt|Other Files (*.*)|*.*";
             this.saveFileDialog.FileName = "untitled.txt";
 
             this.fontDialog.MaxSize = 1024;
@@ -51,12 +51,13 @@ namespace Notepad
         {
             if (!saved)
             {
-                DialogResult result = MessageBox.Show("Do You Want To Save Your Current File?", "Close Dialog", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Do You Want To Save Your Current File?", "Close Dialog", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes)
                 {
                     save();
                     return;
                 }
+                else if (result == DialogResult.Cancel) return;
             }
 
             textBox.Clear();
@@ -65,6 +66,7 @@ namespace Notepad
         private void newButton_Click(object sender, EventArgs e)
         {
             clearText();
+            path = null;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -88,8 +90,16 @@ namespace Notepad
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            this.Text = "Notepad *";
-            saved = false;
+            if (textBox.Text == "")
+            {
+                this.Text = "Notepad";
+                saved = true;
+            }
+            else
+            {
+                this.Text = "Notepad *";
+                saved = false;
+            }
         }
 
         private void openButton_Click(object sender, EventArgs e)
@@ -101,14 +111,21 @@ namespace Notepad
                 clearText();
                 textBox.Text = File.ReadAllText(openFileDialog.FileName);
             }
+            this.Text = "Notepad";
+            saved = true;
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void exitButton_Closing(object sender, FormClosingEventArgs e)
         {
             if (!saved)
             {
-                DialogResult result = MessageBox.Show("Do You Want To Save Your Current File?", "Close Dialog", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Do You Want To Save Your Current File?", "Close Dialog", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes) save();
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
                 else saved = true;
             }
 
@@ -152,7 +169,8 @@ namespace Notepad
             Color color = colorDialog.Color;
             selected = textBox.SelectedText;
 
-            textBox.SelectionColor = color;
+            if (selected.Length == 0) textBox.ForeColor = color;
+            else textBox.SelectionColor = color;
         }
 
         private void fontBtn_Click(object sender, EventArgs e)
@@ -163,7 +181,8 @@ namespace Notepad
             Font font = fontDialog.Font;
             selected = textBox.SelectedText;
 
-            textBox.SelectionFont = font;
+            if (selected.Length == 0) textBox.Font = font;
+            else textBox.SelectionFont = font;
         }
 
         private void allSelectBtn_Click(object sender, EventArgs e)
@@ -190,6 +209,24 @@ namespace Notepad
         private void undoBtn_Click(object sender, EventArgs e)
         {
             textBox.Undo();
+        }
+
+        private void helpBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("- How Does The Font & Color Button Work?\nIf anything is selected, it applies the change to that part, Otherwise applied it to the whole text", "FAQ");
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            if (!saved)
+            {
+                DialogResult result = MessageBox.Show("Do You Want To Save Your Current File?", "Close Dialog", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes) save();
+                else if (result == DialogResult.Cancel) return;
+                else saved = true;
+            }
+
+            Application.Exit();
         }
     }
 }

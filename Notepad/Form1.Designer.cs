@@ -56,6 +56,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -108,7 +109,7 @@
             this.newButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newButton.Name = "newButton";
             this.newButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newButton.Size = new System.Drawing.Size(146, 22);
+            this.newButton.Size = new System.Drawing.Size(180, 22);
             this.newButton.Text = "&New";
             this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
@@ -118,14 +119,14 @@
             this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openButton.Name = "openButton";
             this.openButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openButton.Size = new System.Drawing.Size(146, 22);
+            this.openButton.Size = new System.Drawing.Size(180, 22);
             this.openButton.Text = "&Open";
             this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // saveButton
             // 
@@ -133,26 +134,26 @@
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
             this.saveButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveButton.Size = new System.Drawing.Size(146, 22);
+            this.saveButton.Size = new System.Drawing.Size(180, 22);
             this.saveButton.Text = "&Save";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // saveAsButton
             // 
             this.saveAsButton.Name = "saveAsButton";
-            this.saveAsButton.Size = new System.Drawing.Size(146, 22);
+            this.saveAsButton.Size = new System.Drawing.Size(180, 22);
             this.saveAsButton.Text = "Save &As";
             this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitButton
             // 
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(146, 22);
+            this.exitButton.Size = new System.Drawing.Size(180, 22);
             this.exitButton.Text = "E&xit";
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
@@ -278,6 +279,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchBtn,
             this.toolStripSeparator5,
+            this.helpBtn,
             this.aboutBtn});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -294,6 +296,13 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(113, 6);
+            // 
+            // helpBtn
+            // 
+            this.helpBtn.Name = "helpBtn";
+            this.helpBtn.Size = new System.Drawing.Size(116, 22);
+            this.helpBtn.Text = "FAQ";
+            this.helpBtn.Click += new System.EventHandler(this.helpBtn_Click);
             // 
             // aboutBtn
             // 
@@ -314,7 +323,7 @@
             this.MainMenuStrip = this.menu;
             this.Name = "mainForm";
             this.Text = "Notepad V0.1 BETA";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.exitButton_Click);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.exitButton_Closing);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.ResumeLayout(false);
@@ -356,6 +365,7 @@
         private System.Windows.Forms.ToolStripMenuItem fontBtn;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.FontDialog fontDialog;
+        private System.Windows.Forms.ToolStripMenuItem helpBtn;
     }
 }
 
