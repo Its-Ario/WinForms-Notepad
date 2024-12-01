@@ -20,7 +20,14 @@ namespace Notepad
         {
             InitializeComponent();
 
-            this.saveFileDialog.Filter = this.openFileDialog.Filter = "Text Files | *.txt";        
+            this.saveFileDialog.Filter = this.openFileDialog.Filter = "Text Files | *.txt";
+            this.saveFileDialog.FileName = "untitled.txt";
+
+            this.fontDialog.MaxSize = 1024;
+
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
         }
 
         private void save()
@@ -105,10 +112,10 @@ namespace Notepad
                 else saved = true;
             }
 
-            this.Close();
+            Application.Exit();
         }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copycopyBtn_Click(object sender, EventArgs e)
         {
             selected = textBox.SelectedText;
         }
@@ -118,12 +125,12 @@ namespace Notepad
             string txt = textBox.Text;
             int start = textBox.SelectionStart;
 
-            string beforeText = txt.Remove(start+1, txt.Length-start-1);
+            string beforeText = txt.Remove(start, txt.Length-start);
             string endText = txt.Remove(0, start);
 
             textBox.Text = beforeText + selected + endText;
 
-            textBox.SelectionStart = start+1;
+            textBox.SelectionStart = start+selected.Length;
         }
 
         private void cutButton_Click(object sender, EventArgs e)
@@ -135,6 +142,54 @@ namespace Notepad
             int count = textBox.SelectionLength;
 
             textBox.Text = txt.Remove(start, count);
+        }
+
+        private void colorBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog.ShowDialog();
+            if (result != DialogResult.OK) return;
+
+            Color color = colorDialog.Color;
+            selected = textBox.SelectedText;
+
+            textBox.SelectionColor = color;
+        }
+
+        private void fontBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = fontDialog.ShowDialog();
+            if (result != DialogResult.OK) return;
+
+            Font font = fontDialog.Font;
+            selected = textBox.SelectedText;
+
+            textBox.SelectionFont = font;
+        }
+
+        private void allSelectBtn_Click(object sender, EventArgs e)
+        {
+            textBox.SelectAll();
+        }
+
+        private void aboutBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("a Basic C# Notepad\n© Copyright Mamanet LTD 2024-", "About");
+        }
+
+        private void soonBtn_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem ctrl = (ToolStripMenuItem)sender;
+            MessageBox.Show("Feature Coming Soon...", ctrl.Text.Trim('&'));
+        }
+
+        private void redoBtn_Click(object sender, EventArgs e)
+        {
+            textBox.Redo();
+        }
+
+        private void undoBtn_Click(object sender, EventArgs e)
+        {
+            textBox.Undo();
         }
     }
 }
